@@ -15,6 +15,20 @@
             <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <select id="pageGamePlayTypeList" resultType="com.gw.game.resp.gamePlayType.PageGamePlayTypeLIstResp">
+        select * from game_paly_type
+        where
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="code != null">
+                and code = #{code}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+    </select>
+
     <sql id="Base_Column_List">
         id,code,name,
         status,creator,updater,
