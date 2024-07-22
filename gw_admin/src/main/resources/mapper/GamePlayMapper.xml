@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gw.game.mapper.GamePlayMapper">
+
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.GamePlayEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="SMALLINT"/>
+            <result property="gameId" column="game_id" jdbcType="BIGINT"/>
+            <result property="gamePlayTypeId" column="game_play_type_id" jdbcType="BIGINT"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="updater" column="updater" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getPageGamePlayList" resultType="com.gw.game.resp.gamePlay.PageGamePlayListResp">
+        select * from game_play
+        where
+            <if test="gamePlayName != null">
+                name = #{gamePlayName}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="gameId != null">
+                and game_id = #{gameId}
+            </if>
+    </select>
+
+    <select id="getGamePlayList" resultType="com.gw.game.resp.gamePlay.GetGamePlayListResp">
+        select id,name from game_play
+        <if test="plantformId != null">
+            left join plantform_game on game_play.game_id = plantform_game.game_id
+        </if>
+        where
+            game_play.status = 1 and game_play.game_id = #{gameId}
+        <if test="plantformId != null">
+            and plantform_game.id = #{plantformId}
+        </if>
+    </select>
+
+
+    <sql id="Base_Column_List">
+        id,name,code,
+        status,game_id,game_play_type_id,
+        creator,updater,created_at,
+        updated_at
+    </sql>
+</mapper>

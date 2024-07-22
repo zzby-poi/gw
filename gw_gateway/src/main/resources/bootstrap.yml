@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: #spring.profiles.active#
+---
+
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.124.16:8848
+        file-extension: yml
+        namespace: 0a3b7378-dbe4-40c2-bd71-1298dbe27e18
+        shared-dataids: public-config.yml
+        
+---
+spring:
+  profiles: test
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.124.16:8848
+        file-extension: yml
+        namespace: 2fb9134c-e386-4004-aa5c-6e3fb4fc731c
+        
+---
+spring:
+  profiles: prod
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.124.16:8848
+        file-extension: yml
+        namespace: 4780a297-b1a5-4903-9642-2a853970e09f

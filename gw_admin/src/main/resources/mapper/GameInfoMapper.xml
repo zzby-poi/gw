@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gw.game.mapper.GameInfoMapper">
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.GameInfoEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="SMALLINT"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="order" column="order" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="SMALLINT"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="updater" column="updater" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="pageGameInfoList" resultType="com.gw.game.resp.gameInfo.PageGameInfoListResp">
+        select * from game_info
+        where
+        <if test="gameName != null">
+            name = #{gameName}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+    </select>
+
+    <select id="getGameInfoList" resultType="com.gw.game.resp.gameInfo.GetGameInfoListResp">
+        select id,name,type from game_info
+        <if test="plantformId != null">
+            left join plantform_game on game_info.id = plantform_game.game_id
+        </if>
+        where game_info.status = 1
+        <if test="plantformId != null">
+            and plantform_game.id = #{plantformId}
+        </if>
+        <if test="type != null">
+            and game_info.type = #{type}
+        </if>
+    </select>
+
+    <sql id="Base_Column_List">
+        id,name,code,
+        status,icon,order,
+        type,creator,updater,
+        created_at,updated_at
+    </sql>
+</mapper>

@@ -1,0 +1,38 @@
+#spring:
+#  application:
+#    name: gw-admin
+#  profiles:
+#    active: #spring.profiles.active#
+#system:
+#  code: gw-admin
+#---
+#
+#spring:
+#  profiles: dev
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: paydev.mvkbnb.com:21128
+#        file-extension: yml
+#        namespace: 9d8ab35f-1fd6-4c55-8e76-637f2805a111
+#        shared-dataids: public-config.yml
+#        
+#---
+#spring:
+#  profiles: test
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.124.16:8848
+#        file-extension: yml
+#        namespace: 2fb9134c-e386-4004-aa5c-6e3fb4fc731c
+#        
+#---
+#spring:
+#  profiles: prod
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.124.16:8848
+#        file-extension: yml
+#        namespace: 4780a297-b1a5-4903-9642-2a853970e09f
