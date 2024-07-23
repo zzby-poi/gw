@@ -6,10 +6,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gw.base.resp.ApiResp;
 import com.gw.constans.ResCodeContants;
-import com.gw.game.entity.GamePlayEntity;
-import com.gw.game.entity.PlantformGamePlayEntity;
-import com.gw.game.entity.PlantformMerchant;
-import com.gw.game.entity.PlantformMerchantGamePlayEntity;
+import com.gw.game.entity.*;
 import com.gw.game.mapper.PlantformGamePlayMapper;
 import com.gw.game.req.merchantGamePlay.AddMerchantGamePlayReq;
 import com.gw.game.req.merchantGamePlay.DeleteMerchantGamePlayReq;
@@ -68,26 +65,37 @@ public class PlantformMerchantGamePlayServiceImpl extends ServiceImpl<PlantformM
      */
     @Override
     public ApiResp addMerchantGamePlay(AddMerchantGamePlayReq req) {
-        PlantformMerchantGamePlayEntity merchantGamePlayEntity =baseMapper.selectById(req.getMerchantId());
-        if(merchantGamePlayEntity==null){
-            return ApiResp.error(ResCodeContants.PARAM_ERROR,"无效的平台商户id");
+
+        //先找到唯一的平台商户游戏字段
+        QueryWrapper<PlantformMerchantGamePlayEntity> qw1 = new QueryWrapper<>();
+        qw1.eq("merchant_id",req.getMerchantId());
+        qw1.eq("game_id",req.getGamePlayInfos().getGameId());
+        qw1.eq("game_play_id",req.getGamePlayInfos().getGamePlayId());
+        PlantformMerchantGamePlayEntity pmgp =baseMapper.selectOne(qw1);
+        if(pmgp!=null){
+            return ApiResp.error(ResCodeContants.PARAM_ERROR,"该平台商户游戏玩法已存在");
+        }else{
+            pmgp=new PlantformMerchantGamePlayEntity();
         }
+
+        //判断上级平台是否是启用状态
         //1.根据 平台商户id 查找所属平台id
         PlantformMerchant pm = plantformMerchantService.getById(req.getMerchantId());
         //2.根据 所属平台id 查找游戏玩法是否启用
-        QueryWrapper<PlantformGamePlayEntity> qw = new QueryWrapper<>();
-        qw.eq("plantform_id",pm.getPlantformId());
-        qw.eq("game_id",req.getGamePlayInfos().getGameId());
-        qw.eq("status",1);
-        PlantformGamePlayEntity pgp=plantformGamePlayMapper.selectOne(qw);
+        QueryWrapper<PlantformGamePlayEntity> qw2 = new QueryWrapper<>();
+        qw2.eq("plantform_id",pm.getPlantformId());
+        qw2.eq("game_id",req.getGamePlayInfos().getGameId());
+        qw2.eq("status",1);
+        PlantformGamePlayEntity pgp=plantformGamePlayMapper.selectOne(qw2);
         if(pgp==null){
             return ApiResp.error(ResCodeContants.PARAM_ERROR,"平台未启用该游戏玩法");
         }
-        merchantGamePlayEntity.setMerchantId(req.getMerchantId());
-        merchantGamePlayEntity.setGameId(req.getGamePlayInfos().getGameId());
-        merchantGamePlayEntity.setGamePlayId(req.getGamePlayInfos().getGamePlayId());
-        merchantGamePlayEntity.setStatus(req.getGamePlayInfos().getStatus());
-        baseMapper.insert(merchantGamePlayEntity);
+        //插入
+        pmgp.setMerchantId(req.getMerchantId());
+        pmgp.setGameId(req.getGamePlayInfos().getGameId());
+        pmgp.setGamePlayId(req.getGamePlayInfos().getGamePlayId());
+        pmgp.setStatus(req.getGamePlayInfos().getStatus());
+        baseMapper.insert(pmgp);
         return ApiResp.sucess();
     }
 
