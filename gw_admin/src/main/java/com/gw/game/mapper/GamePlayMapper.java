@@ -23,6 +23,7 @@ public interface GamePlayMapper extends BaseMapper<GamePlayEntity> {
 
     List<GetGamePlayListResp> getGamePlayList(@Param("gameId") Long gameId,
                                               @Param("plantformId") Long plantformId);
+
 }
 
 

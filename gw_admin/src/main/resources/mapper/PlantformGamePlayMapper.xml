@@ -2,11 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.PlantformGameMapper">
+<mapper namespace="com.gw.game.mapper.PlantformGamePlayMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformGameEntity">
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformGamePlayEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="plantformId" column="plantform_id" jdbcType="BIGINT"/>
+            <result property="gamePlayId" column="game_play_id" jdbcType="BIGINT"/>
             <result property="gameId" column="game_id" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="SMALLINT"/>
             <result property="creator" column="creator" jdbcType="VARCHAR"/>
@@ -15,13 +16,13 @@
             <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="getPagePlantformGameList" resultType="com.gw.game.resp.plantformGame.PagePlantformGameListResp">
-        select pg.game_id,gi.name,gi.status,gi.icon,gi.order,gi.type,pi.platform_name from plantform_game pg
-        left join game_info gi on gi.id=pg.game_id
-        left join plantform_info pi on pi.id=pg.plantform_id
+    <select id="getPagePlantformGamePlayList" resultType="com.gw.game.resp.plantformGamePlay.PagePlantformGamePlayListResp">
+        select pgp.game_id,gi.name,gi.status,gi.icon,gi.order,gi.type,pi.platform_name from plantform_game_play pgp
+        left join game_info gi on gi.id=pgp.game_id
+        left join plantform_info pi on pi.id=pgp.plantform_id
         where
             <if test="plantformId != null">
-                pg.plantform_id = #{plantformId}
+                pgp.plantform_id = #{plantformId}
             </if>
             <if test="type != null">
                 gi.type = #{type}
@@ -30,6 +31,12 @@
                 gi.status = #{status}
             </if>
     </select>
+    <update id="statusPlantformGamePlay">
+        update plantform_game_play pgp
+
+
+        set id =#{}
+    </update>
 
     <sql id="Base_Column_List">
         id,plantform_id,game_id,

@@ -1,4 +1,4 @@
-package com.gw.game.resp.plantformGame;
+package com.gw.game.resp.plantformGamePlay;
 import lombok.Data;
 
 /**
@@ -6,7 +6,7 @@ import lombok.Data;
  * @version 创建时间： 2024/7/23 10:02
  */
 @Data
-public class PagePlantformGameListResp{
+public class PagePlantformGamePlayListResp {
     private Long id;
     private String name;
     private Integer status;
