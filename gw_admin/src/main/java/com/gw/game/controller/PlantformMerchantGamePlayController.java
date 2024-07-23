@@ -1,7 +1,14 @@
 package com.gw.game.controller;
 
+import com.gw.base.resp.ApiResp;
+import com.gw.game.req.merchantGamePlay.AddMerchantGamePlayReq;
+import com.gw.game.req.merchantGamePlay.DeleteMerchantGamePlayReq;
+import com.gw.game.req.merchantGamePlay.PageMerchantGamePlayListReq;
+import com.gw.game.req.merchantGamePlay.StatusMerchantGamePlayReq;
 import com.gw.game.service.PlantformMerchantGamePlayService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,5 +22,28 @@ public class PlantformMerchantGamePlayController {
     @Autowired
     PlantformMerchantGamePlayService service;
 
+    @PostMapping("/page_list")
+    @ApiOperation(value = "分页商户游戏玩法")
+    public ApiResp getPageMerchantGamePlayList(PageMerchantGamePlayListReq req) {
+        return service.getPageMerchantGamePlayList(req);
+    }
+
+    @PostMapping("/add")
+    @ApiOperation(value = "新增商户游戏玩法")
+    public ApiResp addMerchantGamePlay(AddMerchantGamePlayReq req) {
+        return service.addMerchantGamePlay(req);
+    }
+
+    @PostMapping("/status")
+    @ApiOperation(value = "启/停用商户游戏玩法")
+    public ApiResp statusMerchantGamePlay(StatusMerchantGamePlayReq req) {
+        return service.statusMerchantGamePlay(req);
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "删除商户游戏玩法")
+    public ApiResp deleteMerchantGamePlay(DeleteMerchantGamePlayReq req) {
+        return service.deleteMerchantGamePlay(req);
+    }
 
 }

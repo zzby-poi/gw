@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 商户游戏玩法关联表
- * @TableName plantform_merchant_game_play
+ * 平台商户信息
+ * @TableName plantform_merchant
  */
-@TableName(value ="plantform_merchant_game_play")
-public class PlantformMerchantGamePlay implements Serializable {
+@TableName(value ="plantform_merchant")
+public class PlantformMerchant implements Serializable {
     /**
      * 
      */
@@ -20,24 +20,39 @@ public class PlantformMerchantGamePlay implements Serializable {
     private Long id;
 
     /**
-     * 平台商户ID
+     * 所属平台ID
      */
-    private Long merchantId;
+    private Long plantformId;
 
     /**
-     * 游戏ID
+     * 商户名称
      */
-    private Long gameId;
+    private String merchantName;
 
     /**
-     * 游戏玩法ID
+     * code
      */
-    private Long gamePlayId;
+    private String code;
 
     /**
-     * 状态（0未启用，1启用）
+     * token校验地址
+     */
+    private String tokenUrl;
+
+    /**
+     * 状态（1正常，0冻结）
      */
     private Integer status;
+
+    /**
+     * 币种
+     */
+    private String currency;
+
+    /**
+     * 商户会员用户名前缀
+     */
+    private String prefix;
 
     /**
      * 创建人
@@ -77,59 +92,101 @@ public class PlantformMerchantGamePlay implements Serializable {
     }
 
     /**
-     * 平台商户ID
+     * 所属平台ID
      */
-    public Long getMerchantId() {
-        return merchantId;
+    public Long getPlantformId() {
+        return plantformId;
     }
 
     /**
-     * 平台商户ID
+     * 所属平台ID
      */
-    public void setMerchantId(Long merchantId) {
-        this.merchantId = merchantId;
+    public void setPlantformId(Long plantformId) {
+        this.plantformId = plantformId;
     }
 
     /**
-     * 游戏ID
+     * 商户名称
      */
-    public Long getGameId() {
-        return gameId;
+    public String getMerchantName() {
+        return merchantName;
     }
 
     /**
-     * 游戏ID
+     * 商户名称
      */
-    public void setGameId(Long gameId) {
-        this.gameId = gameId;
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
     }
 
     /**
-     * 游戏玩法ID
+     * code
      */
-    public Long getGamePlayId() {
-        return gamePlayId;
+    public String getCode() {
+        return code;
     }
 
     /**
-     * 游戏玩法ID
+     * code
      */
-    public void setGamePlayId(Long gamePlayId) {
-        this.gamePlayId = gamePlayId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /**
-     * 状态（0未启用，1启用）
+     * token校验地址
+     */
+    public String getTokenUrl() {
+        return tokenUrl;
+    }
+
+    /**
+     * token校验地址
+     */
+    public void setTokenUrl(String tokenUrl) {
+        this.tokenUrl = tokenUrl;
+    }
+
+    /**
+     * 状态（1正常，0冻结）
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 状态（0未启用，1启用）
+     * 状态（1正常，0冻结）
      */
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    /**
+     * 币种
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * 币种
+     */
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * 商户会员用户名前缀
+     */
+    public String getPrefix() {
+        return prefix;
+    }
+
+    /**
+     * 商户会员用户名前缀
+     */
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     /**
@@ -199,12 +256,15 @@ public class PlantformMerchantGamePlay implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PlantformMerchantGamePlay other = (PlantformMerchantGamePlay) that;
+        PlantformMerchant other = (PlantformMerchant) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getMerchantId() == null ? other.getMerchantId() == null : this.getMerchantId().equals(other.getMerchantId()))
-            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
-            && (this.getGamePlayId() == null ? other.getGamePlayId() == null : this.getGamePlayId().equals(other.getGamePlayId()))
+            && (this.getPlantformId() == null ? other.getPlantformId() == null : this.getPlantformId().equals(other.getPlantformId()))
+            && (this.getMerchantName() == null ? other.getMerchantName() == null : this.getMerchantName().equals(other.getMerchantName()))
+            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
+            && (this.getTokenUrl() == null ? other.getTokenUrl() == null : this.getTokenUrl().equals(other.getTokenUrl()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getCurrency() == null ? other.getCurrency() == null : this.getCurrency().equals(other.getCurrency()))
+            && (this.getPrefix() == null ? other.getPrefix() == null : this.getPrefix().equals(other.getPrefix()))
             && (this.getCreator() == null ? other.getCreator() == null : this.getCreator().equals(other.getCreator()))
             && (this.getUpdater() == null ? other.getUpdater() == null : this.getUpdater().equals(other.getUpdater()))
             && (this.getCreatedAt() == null ? other.getCreatedAt() == null : this.getCreatedAt().equals(other.getCreatedAt()))
@@ -216,10 +276,13 @@ public class PlantformMerchantGamePlay implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getMerchantId() == null) ? 0 : getMerchantId().hashCode());
-        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
-        result = prime * result + ((getGamePlayId() == null) ? 0 : getGamePlayId().hashCode());
+        result = prime * result + ((getPlantformId() == null) ? 0 : getPlantformId().hashCode());
+        result = prime * result + ((getMerchantName() == null) ? 0 : getMerchantName().hashCode());
+        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
+        result = prime * result + ((getTokenUrl() == null) ? 0 : getTokenUrl().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getCurrency() == null) ? 0 : getCurrency().hashCode());
+        result = prime * result + ((getPrefix() == null) ? 0 : getPrefix().hashCode());
         result = prime * result + ((getCreator() == null) ? 0 : getCreator().hashCode());
         result = prime * result + ((getUpdater() == null) ? 0 : getUpdater().hashCode());
         result = prime * result + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
@@ -234,10 +297,13 @@ public class PlantformMerchantGamePlay implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", gameId=").append(gameId);
-        sb.append(", gamePlayId=").append(gamePlayId);
+        sb.append(", plantformId=").append(plantformId);
+        sb.append(", merchantName=").append(merchantName);
+        sb.append(", code=").append(code);
+        sb.append(", tokenUrl=").append(tokenUrl);
         sb.append(", status=").append(status);
+        sb.append(", currency=").append(currency);
+        sb.append(", prefix=").append(prefix);
         sb.append(", creator=").append(creator);
         sb.append(", updater=").append(updater);
         sb.append(", createdAt=").append(createdAt);
