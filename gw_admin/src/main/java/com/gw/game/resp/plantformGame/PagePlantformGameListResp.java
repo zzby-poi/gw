@@ -1,6 +1,4 @@
 package com.gw.game.resp.plantformGame;
-
-import com.gw.base.entity.BaseEntity;
 import lombok.Data;
 
 /**
