@@ -8,10 +8,9 @@ import lombok.Data;
 @Data
 public class PagePlantformGamePlayListResp {
     private Long id;
-    private String name;
-    private Integer status;
-    private String icon;
-    private Integer order;
-    private Integer type;
     private String plantformName;
+    private String gameName;
+    private String gamePlayName;
+    private Integer status;
+    private Integer order;
 }

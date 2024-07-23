@@ -12,7 +12,7 @@ import java.util.Date;
  * @TableName plantform_game
  */
 @TableName(value ="plantform_game")
-public class PlantformGame implements Serializable {
+public class PlantformGameEntity implements Serializable {
     /**
      * 
      */
@@ -180,7 +180,7 @@ public class PlantformGame implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PlantformGame other = (PlantformGame) that;
+        PlantformGameEntity other = (PlantformGameEntity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getPlantformId() == null ? other.getPlantformId() == null : this.getPlantformId().equals(other.getPlantformId()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))

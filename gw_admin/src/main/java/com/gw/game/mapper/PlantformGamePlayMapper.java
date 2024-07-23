@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface PlantformGamePlayMapper extends BaseMapper<PlantformGamePlayEntity> {
     List<PagePlantformGamePlayListResp> getPagePlantformGamePlayList(@Param("plantformId") Long plantformId,
-                                                                 @Param("type") Integer type,
+                                                                 @Param("gameId") Long gameId,
                                                                  @Param("status") Integer status);
 
     void statusPlantformGamePlay(@Param("plantformId") Long plantformId,

@@ -2,6 +2,10 @@ package com.gw.game.mapper;
 
 import com.gw.game.entity.PlantformInfoEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gw.game.resp.plantformGame.PagePlantformGameListResp;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author zzby
@@ -11,6 +15,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface PlantformInfoMapper extends BaseMapper<PlantformInfoEntity> {
 
+    List<PagePlantformGameListResp> getPagePlantformGameList(@Param("plantformId") Long plantformId,
+                                                             @Param("type") Integer type,
+                                                             @Param("status") Integer status);
 }
 
 

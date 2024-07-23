@@ -1,7 +1,9 @@
 package com.gw.game.service;
 
+import com.gw.base.resp.ApiResp;
 import com.gw.game.entity.PlantformInfoEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gw.game.req.plantformGame.PagePlantformGameListReq;
 
 /**
 * @author zzby
@@ -9,5 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-07-23 11:35:43
 */
 public interface PlantformInfoService extends IService<PlantformInfoEntity> {
+
 
 }

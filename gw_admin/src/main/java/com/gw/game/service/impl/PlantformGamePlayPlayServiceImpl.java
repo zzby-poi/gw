@@ -8,6 +8,7 @@ import com.gw.base.resp.ApiResp;
 import com.gw.constans.ResCodeContants;
 import com.gw.game.entity.GameInfoPlaytypeMapping;
 import com.gw.game.entity.GamePlayEntity;
+import com.gw.game.entity.GamePlayInfos;
 import com.gw.game.entity.PlantformGamePlayEntity;
 import com.gw.game.mapper.GamePlayMapper;
 import com.gw.game.mapper.PlantformGamePlayMapper;
@@ -46,10 +47,8 @@ public class PlantformGamePlayPlayServiceImpl extends ServiceImpl<PlantformGameP
     @Override
     public ApiResp<String> getPagePlantformGamePlayList(PagePlantformGamePlayListReq req) {
         PageHelper.startPage(req.getPageNo(),req.getPageSize());
-
         Page<PagePlantformGamePlayListResp> list = (Page<PagePlantformGamePlayListResp>)
-                baseMapper.getPagePlantformGamePlayList(req.getPlantformId(), req.getType(), req.getStatus());
-
+                baseMapper.getPagePlantformGamePlayList(req.getPlantformId(),req.getGameId(), req.getStatus());
         return ApiResp.page(list);
     }
 
@@ -60,19 +59,22 @@ public class PlantformGamePlayPlayServiceImpl extends ServiceImpl<PlantformGameP
      */
     @Override
     public ApiResp<String> addPlantformGamePlay(AddPlantformGamePlayReq req) {
-        List<GamePlayEntity> gamePlayList = req.getGamePlayInfos();
-        List<PlantformGamePlayEntity> pgList=new ArrayList<>();
-        if(gamePlayList.isEmpty()){
+        List<GamePlayInfos> gamePlayInfos = req.getGamePlayInfos();//游戏玩法集合
+
+        List<PlantformGamePlayEntity> pgList=new ArrayList<>();//平台游戏玩法集合
+
+        if(gamePlayInfos.isEmpty()){
             //遍历游戏玩法信息合集，创建并设置平台游戏玩法
-            for (GamePlayEntity gamePlay : gamePlayList) {
+            for (GamePlayInfos infos : gamePlayInfos) {
                 PlantformGamePlayEntity p=new PlantformGamePlayEntity();
-                p.setGamePlayId(gamePlay.getId());
+                p.setGamePlayId(infos.getGamePlayId());
+                p.setGameId(infos.getGameId());
+                p.setStatus(infos.getStatus());
                 p.setPlantformId(req.getPlantformId());
                 pgList.add(p);
             }
             //批量存储
             saveBatch(pgList);
-            gamePlayService.saveBatch(gamePlayList);
             return ApiResp.sucess();
         }
         return ApiResp.error(ResCodeContants.PARAM_ERROR,"参数错误");
@@ -113,8 +115,8 @@ public class PlantformGamePlayPlayServiceImpl extends ServiceImpl<PlantformGameP
     @Override
     public ApiResp<String> deletePlantformGamePlay(DeletePlantformGamePlayReq req) {
         QueryWrapper<PlantformGamePlayEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("gamePlayId", req.getGamePlayId());
-        queryWrapper.eq("plantformId", req.getPlantformId());
+        queryWrapper.eq("game_play_id", req.getGamePlayId());
+        queryWrapper.eq("plantform_id", req.getPlantformId());
         baseMapper.delete(queryWrapper);
         //TODO:删除商户游戏玩法关联信息
 

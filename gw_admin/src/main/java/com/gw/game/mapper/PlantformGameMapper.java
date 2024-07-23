@@ -1,7 +1,11 @@
 package com.gw.game.mapper;
 
-import com.gw.game.entity.PlantformGame;
+import com.gw.game.entity.PlantformGameEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gw.game.resp.plantformGame.PagePlantformGameListResp;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author zzby
@@ -9,8 +13,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2024-07-23 11:48:02
 * @Entity com.gw.game.entity.PlantformGame
 */
-public interface PlantformGameMapper extends BaseMapper<PlantformGame> {
-
+public interface PlantformGameMapper extends BaseMapper<PlantformGameEntity> {
+    List<PagePlantformGameListResp> getPagePlantformGameList(@Param("plantformId") Long plantformId,
+                                                             @Param("type") Integer type,
+                                                             @Param("status") Integer status);
 }
 
 

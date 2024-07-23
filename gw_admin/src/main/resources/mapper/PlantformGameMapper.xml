@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gw.game.mapper.PlantformGameMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformGame">
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformGameEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="plantformId" column="plantform_id" jdbcType="BIGINT"/>
             <result property="gameId" column="game_id" jdbcType="BIGINT"/>
@@ -14,6 +14,23 @@
             <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
             <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <select id="getPagePlantformGameList"
+            resultType="com.gw.game.resp.plantformGame.PagePlantformGameListResp">
+        select pgp.game_id,gi.name,gi.status,gi.icon,gi.order,gi.type,pi.platform_name from plantform_game_play pgp
+        left join game_info gi on gi.id=pgp.game_id
+        left join plantform_info pi on pi.id=pgp.plantform_id
+        where
+        <if test="plantformId != null">
+            pgp.plantform_id = #{plantformId}
+        </if>
+        <if test="type != null">
+            gi.type = #{type}
+        </if>
+        <if test="status != null">
+            gi.status = #{status}
+        </if>
+    </select>
 
     <sql id="Base_Column_List">
         id,plantform_id,game_id,

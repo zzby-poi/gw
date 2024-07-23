@@ -4,16 +4,22 @@ import com.gw.base.req.BasePageReq;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author zzby
  * @version 创建时间： 2024/7/23 9:56
  */
 @Data
 public class PagePlantformGamePlayListReq extends BasePageReq {
-    @ApiModelProperty(value = "平台Id")
+    @NotBlank(message = "平台Id不能为空")
+    @ApiModelProperty(value = "平台Id", required = true)
     private Long plantformId;
-    @ApiModelProperty(value = "游戏类型")
-    private Integer type;
+
+    @NotBlank(message = "游戏id不能为空")
+    @ApiModelProperty(value = "游戏Id", required = true)
+    private Long gameId;
+
     @ApiModelProperty(value = "状态")
     private Integer status;
 }

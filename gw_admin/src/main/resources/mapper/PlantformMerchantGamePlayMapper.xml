@@ -2,14 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.PlantformInfoMapper">
+<mapper namespace="com.gw.game.mapper.PlantformMerchantGamePlayMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformInfoEntity">
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformMerchantGamePlay">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="platformName" column="platform_name" jdbcType="VARCHAR"/>
-            <result property="platformType" column="platform_type" jdbcType="SMALLINT"/>
-            <result property="tokenUrl" column="token_url" jdbcType="VARCHAR"/>
-            <result property="apiKey" column="api_key" jdbcType="VARCHAR"/>
+            <result property="merchantId" column="merchant_id" jdbcType="BIGINT"/>
+            <result property="gameId" column="game_id" jdbcType="BIGINT"/>
+            <result property="gamePlayId" column="game_play_id" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="SMALLINT"/>
             <result property="creator" column="creator" jdbcType="VARCHAR"/>
             <result property="updater" column="updater" jdbcType="VARCHAR"/>
@@ -18,10 +17,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,platform_name,platform_type,
-        token_url,api_key,status,
-        creator,updater,created_at,
-        updated_at
+        id,merchant_id,game_id,
+        game_play_id,status,creator,
+        updater,created_at,updated_at
     </sql>
-
 </mapper>

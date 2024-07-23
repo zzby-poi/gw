@@ -17,18 +17,13 @@
     </resultMap>
 
     <select id="getPagePlantformGamePlayList" resultType="com.gw.game.resp.plantformGamePlay.PagePlantformGamePlayListResp">
-        select pgp.game_id,gi.name,gi.status,gi.icon,gi.order,gi.type,pi.platform_name from plantform_game_play pgp
+        select pgp.game_id,pi.platform_name,gi.name,gp.name,pgp.status,gi.order from plantform_game_play pgp
         left join game_info gi on gi.id=pgp.game_id
+        left join game_play gp on gp.id=pgp.game_play_id
         left join plantform_info pi on pi.id=pgp.plantform_id
-        where
-            <if test="plantformId != null">
-                pgp.plantform_id = #{plantformId}
-            </if>
-            <if test="type != null">
-                gi.type = #{type}
-            </if>
+        where pgp.plantform_id = #{plantformId} and pgp.game_id = #{gameId}
             <if test="status != null">
-                gi.status = #{status}
+                and pgp.status = #{status}
             </if>
     </select>
     <update id="statusPlantformGamePlay">
