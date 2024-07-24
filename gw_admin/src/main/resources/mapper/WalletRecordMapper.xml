@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gw.game.mapper.WalletRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.WalletRecordEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="walletId" column="wallet_id" jdbcType="BIGINT"/>
+            <result property="changeAmt" column="change_amt" jdbcType="DOUBLE"/>
+            <result property="beforeBlanace" column="before_blanace" jdbcType="DOUBLE"/>
+            <result property="afterBlanace" column="after_blanace" jdbcType="DOUBLE"/>
+            <result property="type" column="type" jdbcType="SMALLINT"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="updater" column="updater" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,wallet_id,change_amt,
+        before_blanace,after_blanace,type,
+        remark,creator,updater,
+        created_at,updated_at
+    </sql>
+</mapper>

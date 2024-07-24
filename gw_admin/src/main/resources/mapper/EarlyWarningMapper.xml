@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gw.game.mapper.EarlyWarningMapper">
+
+    <resultMap id="BaseResultMap" type="com.gw.game.entity.EarlyWarningEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <id property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="merchantId" column="merchant_id" jdbcType="BIGINT"/>
+            <result property="warnType" column="warn_type" jdbcType="SMALLINT"/>
+            <result property="planformId" column="planform_id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="SMALLINT"/>
+            <result property="gameId" column="game_id" jdbcType="BIGINT"/>
+            <result property="handler" column="handler" jdbcType="VARCHAR"/>
+            <result property="handleTime" column="handle_time" jdbcType="TIMESTAMP"/>
+            <result property="handleEndTime" column="handle_end_time" jdbcType="TIMESTAMP"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="updater" column="updater" jdbcType="VARCHAR"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,created_at,merchant_id,
+        warn_type,planform_id,content,
+        status,game_id,handler,
+        handle_time,handle_end_time,creator,
+        updater,updated_at
+    </sql>
+</mapper>

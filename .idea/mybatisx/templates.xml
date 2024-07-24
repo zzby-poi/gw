@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="PlantformMerchantGame" />
-                  <option name="tableName" value="plantform_merchant_game" />
+                  <option name="className" value="WalletRecord" />
+                  <option name="tableName" value="wallet_record" />
                 </TableUIInfo>
               </list>
             </option>
