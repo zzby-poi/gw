@@ -1,12 +1,15 @@
 package com.gw.plantform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gw.base.resp.ApiResp;
 import com.gw.constans.ResCodeContants;
 import com.gw.game.entity.*;
+import com.gw.plantform.entity.PlantformMerchantGameEntity;
+import com.gw.plantform.entity.PlantformMerchantGamePlayEntity;
 import com.gw.plantform.req.plantformGame.AddPlantformGameReq;
 import com.gw.plantform.req.plantformGame.DeletePlantformGameReq;
 import com.gw.plantform.req.plantformGame.PagePlantformGameListReq;
@@ -16,6 +19,7 @@ import com.gw.game.service.GameInfoService;
 import com.gw.plantform.service.PlantformGameService;
 import com.gw.plantform.mapper.PlantformGameMapper;
 import com.gw.plantform.entity.PlantformGameEntity;
+import com.gw.plantform.service.PlantformMerchantGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +36,9 @@ public class PlantformGameServiceImpl extends ServiceImpl<PlantformGameMapper, P
     implements PlantformGameService{
     @Autowired
     GameInfoService gameInfoService;
+
+    @Autowired
+    PlantformMerchantGameService plantformMerchantGameService;
     /**
      * 分页平台游戏列表
      * @param req
@@ -78,13 +85,19 @@ public class PlantformGameServiceImpl extends ServiceImpl<PlantformGameMapper, P
      */
     @Override
     public ApiResp<String> statusPlantformGame(StatusPlantformGameReq req) {
-        PlantformGameEntity pg = baseMapper.selectById(req.getPlantformId());
-        //更新平台状态信息
-        pg.setStatus(req.getStatus());
-        baseMapper.updateById(pg);
+//        PlantformGameEntity pg = baseMapper.selectById(req.getPlantformId());
+//        //更新平台状态信息
+//        pg.setStatus(req.getStatus());
+//        baseMapper.updateById(pg);
+
+        baseMapper.statusPlantformGame(req.getStatus(),req.getGameId(),req.getPlantformId());
 
         //TODO:修改商户游戏关联信息、平台游戏玩法关联信息、商户游戏玩法关联平台
-
+//        PlantformMerchantGameEntity pmgEntity= plantformMerchantGameService.getBaseMapper().selectOne(
+//                Wrappers.<PlantformMerchantGameEntity>lambdaQuery().eq(PlantformMerchantGameEntity::getMerchantId,
+//                        pg.getId()));
+//        pmgEntity.setStatus(req.getStatus());
+//        plantformMerchantGameService.getBaseMapper().updateById(pmgEntity);
 
         return ApiResp.sucess();
     }
@@ -97,12 +110,18 @@ public class PlantformGameServiceImpl extends ServiceImpl<PlantformGameMapper, P
      */
     @Override
     public ApiResp<String> deletePlantformGame(DeletePlantformGameReq req) {
-        QueryWrapper<PlantformGameEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("game_id", req.getGameId());
-        queryWrapper.eq("plantform_id", req.getPlantformId());
-        baseMapper.delete(queryWrapper);
-        //TODO:删除商户游戏关联信息、平台游戏玩法关联信息、商户游戏玩法关联平台
+//        QueryWrapper<PlantformGameEntity> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("game_id", req.getGameId());
+//        queryWrapper.eq("plantform_id", req.getPlantformId());
+//        baseMapper.delete(queryWrapper);
 
+        baseMapper.deletePlantformGame(req.getPlantformId(),req.getGameId());
+        //TODO:删除商户游戏关联信息、平台游戏玩法关联信息、商户游戏玩法关联平台
+        //商户游戏玩法
+//        PlantformMerchantGameEntity pmgEntity= plantformMerchantGameService.getBaseMapper().selectOne(
+//                Wrappers.<PlantformMerchantGameEntity>lambdaQuery().eq(PlantformMerchantGameEntity::getGameId,
+//                        req.getGameId()));
+//        plantformMerchantGameService.getBaseMapper().deleteById(pmgEntity);
         return ApiResp.sucess();
     }
 }

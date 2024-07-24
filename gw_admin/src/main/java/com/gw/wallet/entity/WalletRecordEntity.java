@@ -1,5 +1,6 @@
 package com.gw.wallet.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gw.base.entity.BaseEntity;
@@ -15,7 +16,7 @@ public class WalletRecordEntity extends BaseEntity {
     /**
      * 
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**

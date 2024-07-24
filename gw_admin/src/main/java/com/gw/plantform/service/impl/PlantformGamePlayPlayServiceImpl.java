@@ -1,6 +1,7 @@
 package com.gw.plantform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -10,6 +11,8 @@ import com.gw.game.entity.GamePlayEntity;
 import com.gw.game.entity.GamePlayInfos;
 import com.gw.plantform.entity.PlantformGamePlayEntity;
 import com.gw.game.mapper.GamePlayMapper;
+import com.gw.plantform.entity.PlantformMerchantGameEntity;
+import com.gw.plantform.entity.PlantformMerchantGamePlayEntity;
 import com.gw.plantform.mapper.PlantformGamePlayMapper;
 import com.gw.plantform.req.plantformGamePlay.AddPlantformGamePlayReq;
 import com.gw.plantform.req.plantformGamePlay.DeletePlantformGamePlayReq;
@@ -18,6 +21,8 @@ import com.gw.plantform.req.plantformGamePlay.StatusPlantformGamePlayReq;
 import com.gw.plantform.resp.plantformGamePlay.PagePlantformGamePlayListResp;
 import com.gw.game.service.GamePlayService;
 import com.gw.plantform.service.PlantformGamePlayService;
+import com.gw.plantform.service.PlantformMerchantGamePlayService;
+import com.gw.plantform.service.PlantformMerchantGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +41,9 @@ public class PlantformGamePlayPlayServiceImpl extends ServiceImpl<PlantformGameP
     GamePlayService gamePlayService;
     @Autowired
     GamePlayMapper gamePlayMapper;
+
+    @Autowired
+    PlantformMerchantGamePlayService plantformMerchantGamePlayService;
 
     /**
      * 分页平台游戏列表
@@ -100,8 +108,11 @@ public class PlantformGamePlayPlayServiceImpl extends ServiceImpl<PlantformGameP
         }
         baseMapper.updateById(pg);
         //TODO:修改商户游戏玩法关联信息中对应玩法为相应状态
-
-
+        PlantformMerchantGamePlayEntity pmgpEntity= plantformMerchantGamePlayService.getBaseMapper().selectOne(
+                Wrappers.<PlantformMerchantGamePlayEntity>lambdaQuery().eq(PlantformMerchantGamePlayEntity::getMerchantId,
+                        pg.getId()));
+        pmgpEntity.setStatus(req.getStatus());
+        plantformMerchantGamePlayService.getBaseMapper().updateById(pmgpEntity);
         return ApiResp.sucess();
     }
 
@@ -118,6 +129,10 @@ public class PlantformGamePlayPlayServiceImpl extends ServiceImpl<PlantformGameP
         queryWrapper.eq("plantform_id", req.getPlantformId());
         baseMapper.delete(queryWrapper);
         //TODO:删除商户游戏玩法关联信息
+        PlantformMerchantGamePlayEntity pmgpEntity= plantformMerchantGamePlayService.getBaseMapper().selectOne(
+                Wrappers.<PlantformMerchantGamePlayEntity>lambdaQuery().eq(PlantformMerchantGamePlayEntity::getGamePlayId,
+                        req.getGamePlayId()));
+        plantformMerchantGamePlayService.getBaseMapper().deleteById(pmgpEntity);
 
         return ApiResp.sucess();
     }

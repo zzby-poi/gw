@@ -14,6 +14,23 @@
             <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
             <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <update id="statusPlantformGame">
+        start transaction
+            update plantform_game set status = #{status} where plantform_id = #{plantformId} and game_id = #{gameId};
+            update plantform_merchant_game set status = #{status} where game_id = #{gameId};
+            update plantform_game_play set status = #{status} where plantform_id = #{plantformId} and game_id = #{gameId};
+            update plantform_merchant_game_play set status = #{status} where plantform_id = #{plantformId} and game_id = #{gameId};
+        commit
+    </update>
+
+    <delete id="deletePlantformGame">
+        start transaction
+            delete from plantform_game where plantform_id = #{plantformId} and game_id = #{gameId};
+            delete from plantform_merchant_game where game_id = #{gameId};
+            delete from plantform_game_play where plantform_id = #{plantformId} and game_id = #{gameId};
+            delete from plantform_merchant_game_play where plantform_id = #{plantformId} and game_id = #{gameId};
+        commit
+    </delete>
 
     <select id="getPagePlantformGameList"
             resultType="com.gw.plantform.resp.plantformGame.PagePlantformGameListResp">

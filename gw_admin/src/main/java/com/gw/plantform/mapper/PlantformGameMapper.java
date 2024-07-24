@@ -17,6 +17,14 @@ public interface PlantformGameMapper extends BaseMapper<PlantformGameEntity> {
     List<PagePlantformGameListResp> getPagePlantformGameList(@Param("plantformId") Long plantformId,
                                                              @Param("type") Integer type,
                                                              @Param("status") Integer status);
+
+    void statusPlantformGame(
+            @Param("status") Integer status,
+            @Param("gameId") Long gameId,
+            @Param("plantformId") Long plantformId);
+
+    void deletePlantformGame(@Param("plantformId") Long plantformId,
+                             @Param("gameId") Long gameId);
 }
 
 

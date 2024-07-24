@@ -1,11 +1,13 @@
 package com.gw.plantform.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.gw.base.resp.ApiResp;
 import com.gw.constans.ResCodeContants;
+import com.gw.plantform.entity.PlantformMerchantGamePlayEntity;
 import com.gw.plantform.mapper.PlantformGameMapper;
 import com.gw.plantform.resp.merchantGame.PageMerchantGameListResp;
 import com.gw.game.service.*;
@@ -42,6 +44,9 @@ public class PlantformMerchantGameServiceImpl extends ServiceImpl<PlantformMerch
 
     @Autowired
     PlantformMerchantGamePlayService plantformMerchantGamePlayService;
+
+    @Autowired
+    PlantformMerchantGameService plantformMerchantGameService;
     
     
     /**
@@ -150,6 +155,11 @@ public class PlantformMerchantGameServiceImpl extends ServiceImpl<PlantformMerch
         baseMapper.updateById(pmg);
 
         //TODO:修改商户游戏玩法关联信息
+        PlantformMerchantGamePlayEntity pmgpEntity= plantformMerchantGamePlayService.getBaseMapper().selectOne(
+                Wrappers.<PlantformMerchantGamePlayEntity>lambdaQuery().eq(PlantformMerchantGamePlayEntity::getMerchantId,
+                        req.getMerchantId()));
+        pmgpEntity.setStatus(req.getStatus());
+        plantformMerchantGamePlayService.getBaseMapper().updateById(pmgpEntity);
         return ApiResp.sucess();
     }
 
@@ -169,6 +179,11 @@ public class PlantformMerchantGameServiceImpl extends ServiceImpl<PlantformMerch
         baseMapper.deleteById(plantformMerchantGameEntity);
 
         //TODO:删除商户游戏玩法关联信息
+        PlantformMerchantGamePlayEntity pmgpEntity= plantformMerchantGamePlayService.getBaseMapper().selectOne(
+                Wrappers.<PlantformMerchantGamePlayEntity>lambdaQuery().eq(PlantformMerchantGamePlayEntity::getMerchantId,
+                        req.getMerchantId()));
+        plantformMerchantGamePlayService.getBaseMapper().deleteById(pmgpEntity);
+
         return ApiResp.sucess();
     }
 }
