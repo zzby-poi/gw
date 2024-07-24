@@ -4,7 +4,7 @@ spring:
   application:
     name: gw_admin
   profiles:
-    active: #spring.profiles.active#
+    active: dev
 system:
   code: gw_admin
 # JWT配置

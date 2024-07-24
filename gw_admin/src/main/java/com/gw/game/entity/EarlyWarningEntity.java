@@ -21,12 +21,6 @@ public class EarlyWarningEntity extends BaseEntity {
     private Long id;
 
     /**
-     * 创建时间
-     */
-    @TableId
-    private Date createdAt;
-
-    /**
      * 商户ID
      */
     private Long merchantId;

@@ -26,12 +26,6 @@
                 and pgp.status = #{status}
             </if>
     </select>
-    <update id="statusPlantformGamePlay">
-        update plantform_game_play pgp
-
-
-        set id =#{}
-    </update>
 
     <sql id="Base_Column_List">
         id,plantform_id,game_id,
