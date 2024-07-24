@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.PlantformInfoMapper">
+<mapper namespace="com.gw.plantform.mapper.PlantformInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformInfoEntity">
+    <resultMap id="BaseResultMap" type="com.gw.plantform.entity.PlantformInfoEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="platformName" column="platform_name" jdbcType="VARCHAR"/>
             <result property="platformType" column="platform_type" jdbcType="SMALLINT"/>

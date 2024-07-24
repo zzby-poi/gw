@@ -9,6 +9,8 @@ import org.springframework.core.env.Environment;
 import com.gw.util.DefaultProfileUtil;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
 /**
  * Hello world!
  *
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SpringBootApplication
 @EnableAspectJAutoProxy
+@EnableScheduling
 @MapperScan(basePackages = "com.gw.**.mapper")
 public class AdminApplication
 {

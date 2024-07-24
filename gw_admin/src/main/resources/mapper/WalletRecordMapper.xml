@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.WalletRecordMapper">
+<mapper namespace="com.gw.wallet.mapper.WalletRecordMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.WalletRecordEntity">
+    <resultMap id="BaseResultMap" type="com.gw.wallet.entity.WalletRecordEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="walletId" column="wallet_id" jdbcType="BIGINT"/>
             <result property="changeAmt" column="change_amt" jdbcType="DOUBLE"/>

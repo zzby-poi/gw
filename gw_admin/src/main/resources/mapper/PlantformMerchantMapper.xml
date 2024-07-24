@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.PlantformMerchantMapper">
+<mapper namespace="com.gw.plantform.mapper.PlantformMerchantMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformMerchant">
+    <resultMap id="BaseResultMap" type="com.gw.plantform.entity.PlantformMerchant">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="plantformId" column="plantform_id" jdbcType="BIGINT"/>
             <result property="merchantName" column="merchant_name" jdbcType="VARCHAR"/>

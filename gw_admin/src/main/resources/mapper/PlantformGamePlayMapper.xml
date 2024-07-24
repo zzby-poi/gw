@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.PlantformGamePlayMapper">
+<mapper namespace="com.gw.plantform.mapper.PlantformGamePlayMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformGamePlayEntity">
+    <resultMap id="BaseResultMap" type="com.gw.plantform.entity.PlantformGamePlayEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="plantformId" column="plantform_id" jdbcType="BIGINT"/>
             <result property="gamePlayId" column="game_play_id" jdbcType="BIGINT"/>
@@ -16,7 +16,7 @@
             <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="getPagePlantformGamePlayList" resultType="com.gw.game.resp.plantformGamePlay.PagePlantformGamePlayListResp">
+    <select id="getPagePlantformGamePlayList" resultType="com.gw.plantform.resp.plantformGamePlay.PagePlantformGamePlayListResp">
         select pgp.game_id,pi.platform_name,gi.name,gp.name,pgp.status,gi.order from plantform_game_play pgp
         left join game_info gi on gi.id=pgp.game_id
         left join game_play gp on gp.id=pgp.game_play_id

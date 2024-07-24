@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gw.admin.mapper.AdminNoteMapper">
+
+    <resultMap id="BaseResultMap" type="com.gw.admin.entity.AdminNoteEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="merchantId" column="merchant_id" jdbcType="BIGINT"/>
+            <result property="aduitStatus" column="aduit_status" jdbcType="SMALLINT"/>
+            <result property="aduitUserId" column="aduit_user_id" jdbcType="BIGINT"/>
+            <result property="aduitTime" column="aduit_time" jdbcType="TIMESTAMP"/>
+            <result property="rejectReason" column="reject_reason" jdbcType="VARCHAR"/>
+            <result property="isTop" column="is_top" jdbcType="SMALLINT"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="updater" column="updater" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,
+        merchant_id,aduit_status,aduit_user_id,
+        aduit_time,reject_reason,is_top,
+        creator,updater,created_at,
+        updated_at
+    </sql>
+</mapper>

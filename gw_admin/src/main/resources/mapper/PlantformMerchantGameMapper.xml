@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gw.game.mapper.PlantformMerchantGameMapper">
+<mapper namespace="com.gw.plantform.mapper.PlantformMerchantGameMapper">
 
-    <resultMap id="BaseResultMap" type="com.gw.game.entity.PlantformMerchantGameEntity">
+    <resultMap id="BaseResultMap" type="com.gw.plantform.entity.PlantformMerchantGameEntity">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="merchantId" column="merchant_id" jdbcType="BIGINT"/>
             <result property="gameId" column="game_id" jdbcType="BIGINT"/>
@@ -15,7 +15,7 @@
             <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
     <select id="getPageMerchantGameList"
-            resultType="com.gw.game.resp.merchantGame.PageMerchantGameListResp">
+            resultType="com.gw.plantform.resp.merchantGame.PageMerchantGameListResp">
         select pmg.merchant_id,pm.merchant_name,gi.name,gp.name,pmg.status,gi.order
         from plantform_merchant_game_play pmg
         left join plantform_merchant pm on pm.id=pmg.merchant_id
